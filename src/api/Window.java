@@ -34,80 +34,63 @@ public class Window extends JFrame implements ActionListener  {
 
         }
 
+
         @Override
         protected void paintComponent(Graphics g) {
             super.paintComponent(g);
             double abX= Math.abs(graph.getMaxX()-graph.getMinX());
             double abY= Math.abs(graph.getMaxY()-graph.getMinY());
 
-            double scaleX= (mainFrame.getWidth())/abX;
-            double scaleY= (mainFrame.getHeight())/abY;
+            double scaleX= 600/abX;
+            double scaleY= 600/abY;
 
-            boolean isit1=false;
-       for (Object o : graph.getNodes().values()){
-            Node nd =  (Node) o;
-
-            String[] str = nd.getPos().split(",");
-
-            int x = (int) (scaleX *Double.parseDouble(str[0]));
-            int y = (int) (scaleY* Double.parseDouble(str[1]));
-
-
-                isit1=true;
-                String strX= x+"";
-                String stry= y+"";
-
-                if (strX.length()>2 )
-                x=Integer.parseInt(strX.substring(strX.length()-3));
-
-                if (stry.length()>2 )
-                y=Integer.parseInt(stry.substring(stry.length()-3));
-
-
-            g.setColor(Color.red);
-            g.fillOval(x,y,10,10);
-
-       }
-
-            boolean isit2=false;
             for (Object o : graph.getEdges().values()){
                 Edge ed =  (Edge) o;
 
                 Node ndSrc =(Node) graph.getNode(ed.getSrc());
                 Node ndDest =(Node) graph.getNode(ed.getDest());
 
-                String[] strOfSrc = ndSrc.getPos().split(",");
-                String[] strOfDest = ndDest.getPos().split(",");
+                int xSrc = (int) (ndSrc.getLocation().x() *scaleX);
+                int ySrc = (int) (ndSrc.getLocation().y()*scaleY);
 
-                int xSrc = (int) (scaleX *Double.parseDouble(strOfSrc[0]));
-                int ySrc = (int) (scaleY* Double.parseDouble(strOfSrc[1]));
+                int xDest = (int) (ndDest.getLocation().x() *scaleX);
+                int yDest = (int) (ndDest.getLocation().y()*scaleY);
 
-                int xDest = (int) (scaleX *Double.parseDouble(strOfDest[0]));
-                int yDest = (int) (scaleY* Double.parseDouble(strOfDest[1]));
+                String srcStrX= "00"+xSrc;
+                String srcStrY= "00"+ySrc;
 
-                if (xSrc>=1000 ||ySrc>=1000| xDest>=1000 ||yDest>=1000| isit2){
-                    isit2=true;
+                xSrc=Integer.parseInt(srcStrX.substring(srcStrX.length()-3));
+                ySrc=Integer.parseInt(srcStrY.substring(srcStrY.length()-3));
 
-                    String strXsrc= xSrc+"";
-                    String strysrc= ySrc+"";
+                String destStrX= "00"+xDest;
+                String destStrY= "00"+yDest;
 
-                    String strXdest= xDest+"";
-                    String strydest= yDest+"";
-                    if (strXsrc.length()>2 && strysrc.length()>2 ) {
-                        xSrc = Integer.parseInt(strXsrc.substring(strXsrc.length() - 3));
-                        ySrc = Integer.parseInt(strysrc.substring(strysrc.length() - 3));
-                    }
-                    if (strXdest.length()>2 && strydest.length()>2 ) {
-                    xDest=Integer.parseInt(strXdest.substring(strXdest.length()-3));
-                    yDest=Integer.parseInt(strydest.substring(strydest.length()-3));
-                }}
+                xDest=Integer.parseInt(destStrX.substring(destStrX.length()-3));
+                yDest=Integer.parseInt(destStrY.substring(destStrY.length()-3));
 
                 g.setColor(Color.black);
                 g.drawLine(xSrc,ySrc,xDest,yDest);
+            }
 
+            for (Object o : graph.getNodes().values()){
+                Node nd =  (Node) o;
+
+                int x = (int) ( nd.getLocation().x()*scaleX);
+                int y = (int) (nd.getLocation().y()*scaleY);
+
+                String strX= "00"+x;
+                String stry= "00"+y;
+
+                x=Integer.parseInt(strX.substring(strX.length()-3));
+                y=Integer.parseInt(stry.substring(stry.length()-3));
+
+                int r=10;
+                x = x-(r/2);
+                y = y-(r/2);
+                g.setColor(Color.red);
+                g.fillOval(x,y,r,r);
             }
         }
-
     }
 
     public Window(String fileToRun) {
@@ -115,11 +98,9 @@ public class Window extends JFrame implements ActionListener  {
         dwga.load(fileToRun);
         counterOfSaves = 0;
 
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-
         mainFrame = new JFrame("Graph Drawer");
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        mainFrame.setSize(screenSize);
+        mainFrame.setSize(getToolkit().getScreenSize());
 
 
         //mainFrame.setLocationRelativeTo(null);
@@ -243,7 +224,10 @@ public class Window extends JFrame implements ActionListener  {
             dwga.getGraph().addNode(nd);
             System.out.println("Adding Node");
             subFrame.setVisible(false);
-            TheGuiGraph.reset();
+
+            TheGuiGraph = new GUIGraph(dwga.getGraph());
+            mainFrame.getContentPane().add(TheGuiGraph);
+            mainFrame.setVisible(true);
         }
         if(e.getSource()==connectNodes) {
             subFrame =getNewFrame();
