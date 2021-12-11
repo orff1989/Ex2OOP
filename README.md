@@ -4,7 +4,7 @@ In this project, you can load graphs from json files, edit the graph and run som
 # Analysis of the performance of the algorithms:
 
 
-__Graph with 1000 Nodes:__
+__Graph with 1,000 Nodes:__
 
 Time to build: 111 ms. 
 
@@ -18,7 +18,7 @@ Time to run tsp is:
 
 
 
-__Graph with 10000 Nodes:__
+__Graph with 10,000 Nodes:__
 
 Time to build: 318 ms. 
 
@@ -32,7 +32,7 @@ Time to run tsp is:
 
 
 
-__Graph with 100000 Nodes:__
+__Graph with 100,000 Nodes:__
 
 Time to build: 2898 ms. 
 
@@ -41,6 +41,20 @@ Time to run isConnected: 183 ms.
 Time to run shortestpath distance between node number 1 to node number 10 is: 823569 
 
 Time to run center is: 93263347 
+ 
+Time to run tsp is:
+
+
+
+__Graph with 1,000,000 Nodes:__
+
+Time to build: 4946 ms. 
+
+Time to run isConnected: 433 ms.
+
+Time to run shortestpath distance between node number 1 to node number 10 is: 93263347475 
+
+Time to run center is: 667 ms
  
 Time to run tsp is:
 
