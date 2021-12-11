@@ -4,6 +4,42 @@ In this project, you can load graphs from json files, edit the graph and run som
 # Analysis of the performance of the algorithms:
 
 
-_Graph with 1000 Nodes:_
+__Graph with 1000 Nodes:__
 
-The graph is connected, the shortest path distance between node number 1 to node number 10 is 993.1326, the center is node number 107?
+Time to build: 111 ms. 
+
+Time to run isConnected: 5 ms.
+
+Time to run shortestpath distance between node number 1 to node number 10 is: 25 ms
+
+Time to run center is:9568 
+ 
+Time to run tsp is:
+
+
+
+__Graph with 10000 Nodes:__
+
+Time to build: 318 ms. 
+
+Time to run isConnected: 27 ms.
+
+Time to run shortestpath distance between node number 1 to node number 10 is: 877 ms
+
+Time to run center is: 3461738
+ 
+Time to run tsp is:
+
+
+
+__Graph with 100000 Nodes:__
+
+Time to build: 2898 ms. 
+
+Time to run isConnected: 183 ms.
+
+Time to run shortestpath distance between node number 1 to node number 10 is: 823569 
+
+Time to run center is: 93263347 
+ 
+Time to run tsp is:
