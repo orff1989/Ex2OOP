@@ -54,7 +54,7 @@ Time to run isConnected: 433 ms.
 
 Time to run shortestpath distance between node number 1 to node number 10 is: 93263347475 
 
-Time to run center is: 667 ms
+Time to run center is: 6672 ms
  
 Time to run tsp is:
 
