@@ -3,7 +3,7 @@
     <output-path>$PROJECT_DIR$/out/artifacts/Ex2OOP_jar</output-path>
     <root id="archive" name="Ex2OOP.jar">
       <element id="module-output" name="Ex2OOP" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/out/artifacts/Ex2_jar/Ex2.jar" path-in-jar="/" />
+      <element id="library" level="project" name="Ex2" />
       <element id="extracted-dir" path="$USER_HOME$/Downloads/gson-2.8.9.jar" path-in-jar="/" />
       <element id="library" level="project" name="Ex21" />
     </root>
