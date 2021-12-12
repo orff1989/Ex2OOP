@@ -1,15 +1,5 @@
 # Graph Drawer
-<<<<<<< HEAD
-In this project, you can load graphs from json file, edit the graph and run some algorithms on the graph.
 
-Analysis of the performance of the algorithms:
-
-Graph with 1000 Nodes:
-
-The graph is connected.
-
-
-=======
 In this project, you can load graphs from json files, edit the graph and run some algorithms on the graph.
 
 This is a uml the projects:
@@ -88,5 +78,4 @@ __3. Start diplay graphs:__
 
 ![Screenshot 2021-12-11 211727](https://user-images.githubusercontent.com/43110158/145688910-7d924733-379f-4f0c-9ad4-dfda1dd4fe95.png)
 
->>>>>>> 9a038c2512a157955693003c44441aefed1c1463
 
