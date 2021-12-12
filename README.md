@@ -14,7 +14,7 @@ Time to run shortestpath distance between node number 1 to node number 10 is: 25
 
 Time to run center is:9568 
  
-Time to run tsp is:
+Time to run tsp is: 2 ms.
 
 
 
@@ -28,7 +28,7 @@ Time to run shortestpath distance between node number 1 to node number 10 is: 87
 
 Time to run center is: 3461738
  
-Time to run tsp is:
+Time to run tsp is: 12 ms.
 
 
 
@@ -42,7 +42,7 @@ Time to run shortestpath distance between node number 1 to node number 10 is: 82
 
 Time to run center is: 93263347 
  
-Time to run tsp is:
+Time to run tsp is: 172 ms.
 
 
 
@@ -56,7 +56,7 @@ Time to run shortestpath distance between node number 1 to node number 10 is: 93
 
 Time to run center is: 6672 ms
  
-Time to run tsp is:
+Time to run tsp is: 3591 
 
 
 # How To Use:
