@@ -1,6 +1,10 @@
 # Graph Drawer
 In this project, you can load graphs from json files, edit the graph and run some algorithms on the graph.
 
+This is a uml the projects:
+
+![umlllll](https://user-images.githubusercontent.com/43110158/145729547-41af456e-a1dd-446e-88b6-172eb6cf287e.png)
+
 # Analysis of the performance of the algorithms:
 
 
