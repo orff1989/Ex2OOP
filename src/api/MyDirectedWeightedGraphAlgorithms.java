@@ -13,6 +13,7 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
     @Override
     public void init(DirectedWeightedGraph gr) {
         this.graph = gr;
+        fixNodesNeighbors();
     }
 
     @Override
@@ -28,25 +29,53 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
 
     @Override
     public boolean isConnected() {
+        MyDirectedWeightedGraph g = (MyDirectedWeightedGraph) graph;
+
         boolean[] visi = new boolean[graph.nodeSize()];
-        dfs(0, visi);
-        int c = 0;
+        dfsIterative(0, visi);
+
         for (int i = 0; i < graph.nodeSize(); i++) {
-            if (visi[i] == false) return false;
+            if (visi[i] == false){
+                g.setConnected(false);
+                return false;
+            }
         }
+        g.setConnected(true);
         return true;
     }
 
     private void dfs(int NodeId, boolean[] visi) {
         MyDirectedWeightedGraph gg = (MyDirectedWeightedGraph) graph;
         visi[NodeId] = true;
+        Node n = (Node) gg.getNode(NodeId);
 
-        for (Object o : gg.getEdges().values()) {
+        for (Object o : n.neighbors) {
             EdgeData ed = (Edge) o;
-            if (gg.getEdge(NodeId, ed.getDest()) != null) {
-                if (visi[ed.getDest()] == false) dfs(ed.getDest(), visi);
+            if (visi[ed.getDest()] == false) dfs(ed.getDest(), visi);
+        }
+    }
+
+    private void dfsIterative(int NodeId, boolean[] visi){
+        MyDirectedWeightedGraph gg = (MyDirectedWeightedGraph) graph;
+        visi[NodeId] = true;
+
+        Stack<Integer> st = new Stack();
+        st.push(NodeId);
+
+        while (!st.isEmpty()){
+            int v = st.pop();
+            Node n = (Node) graph.getNode(v);
+
+            for (Object o : n.neighbors) {
+                EdgeData ed = (Edge) o;
+
+                if (visi[ed.getDest()] == false){
+                    st.push(ed.getDest());
+                    visi[ed.getDest()]=true;
+                }
             }
         }
+
     }
 
     //this method is adding every node its edges
@@ -115,7 +144,7 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
     @Override
     public double shortestPathDist(int src, int dest) {
         if (src == dest) return 0;
-        fixNodesNeighbors();
+
         LinkedList<NodeData>[] thePath = new LinkedList[graph.nodeSize()];
         for (int i = 0; i < thePath.length; i++) {
             thePath[i] = new LinkedList<>();
@@ -133,7 +162,7 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
             thePath.add(n);
             return thePath;
         }
-        fixNodesNeighbors();
+
         LinkedList<NodeData>[] thePath = new LinkedList[graph.nodeSize()];
         for (int i = 0; i < thePath.length; i++) {
             thePath[i] = new LinkedList<>();
@@ -167,7 +196,8 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
     //this method returns the center of the graph
     @Override
     public NodeData center() {
-        if (isConnected()) {
+        MyDirectedWeightedGraph gg = (MyDirectedWeightedGraph) graph;
+        if (gg.getIsConnected() || isConnected()) {
             double[] dist = eccentricity(); //calculating the max distance of every node
             double min = dist[0];
             int index = 0;
@@ -182,76 +212,98 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
         return null;
     }
 
-    private boolean allVisited(int[] visited) {
-        for (int i = 0; i < visited.length; i++) {
-            if (visited[i] == 0) return false;
+    private boolean allVisited(List<NodeData> cities,HashMap<Integer,Boolean> visited) {
+        for (NodeData n: cities) {
+            int i =n.getKey();
+            if (visited.get(i)==false) return false;
         }
         return true;
     }
 
-    private int theLightNextNode(NodeData node, int[] visited) {
-        Node n = (Node) node;
-        if (n.getNeighbors().isEmpty()) return -1;
-
-        double minW = Integer.MAX_VALUE;
+    private int theLightNextNodeNotVisited(int nodeId, HashMap<Integer,Boolean> visited) {
         int index = -1;
-        for (Object o : n.getNeighbors()) {
-            EdgeData ed = (Edge) o;
-            if (ed.getWeight() < minW) {
-              //  if ((ed.getDest()<=visited.length && visited[ed.getDest()]==0)|| visited)
-                minW = ed.getWeight();
-                index = ed.getDest();
+        Node n = (Node) graph.getNode(nodeId);
+        if (n!=null) {
+            if (n.getNeighbors().isEmpty()) return -1;
+
+            double minW = Integer.MAX_VALUE;
+
+
+            for (Object o : n.getNeighbors()) {
+                EdgeData ed = (Edge) o;
+
+                if (ed.getWeight() < minW) {
+                    if (visited.containsKey(ed.getDest()) == false || visited.get(ed.getDest()) == false) {
+                        minW = ed.getWeight();
+                        index = ed.getDest();
+                    }
+                }
+            }
+        }
+        return index;
+
+    }
+
+    private int theLightNextNode(int nodeId) {
+        int index = -1;
+        Node n = (Node) graph.getNode(nodeId);
+        if (n!=null) {
+            if (n.getNeighbors().isEmpty()) return -1;
+
+            double minW = Integer.MAX_VALUE;
+
+
+            for (Object o : n.getNeighbors()) {
+                EdgeData ed = (Edge) o;
+
+                if (ed.getWeight() < minW) {
+                    minW = ed.getWeight();
+                    index = ed.getDest();
+                }
             }
         }
         return index;
     }
 
-    private double tspHelper(List<NodeData> cities, NodeData src, int[] visited, LinkedList<NodeData> thePath, double sum,int prvNode) {
-        if (src.getKey()< visited.length) visited[src.getKey()] = 1;
-        thePath.add(src);
-        if (allVisited(visited)) return graph.getEdge(prvNode,src.getKey()).getWeight();
-
-        if (prvNode!=-1)
-        sum=sum+ graph.getEdge(prvNode,src.getKey()).getWeight();
-
-        NodeData nextNode = graph.getNode(theLightNextNode(src, visited));
-
-        return sum + tspHelper(cities, nextNode, visited, thePath, sum,src.getKey());
-    }
-
-
     @Override
     public List<NodeData> tsp(List<NodeData> cities) {
-        fixNodesNeighbors();
+        HashMap<Integer, Boolean> visited = new HashMap();
+        LinkedList<NodeData> thepath = new LinkedList<NodeData>();
 
-        double[] weights = new double[cities.size()];
-        LinkedList<NodeData>[] thePath = new LinkedList[cities.size()];
-        for (int i = 0; i < thePath.length; i++) {
-            thePath[i]= new LinkedList<NodeData>();
+        fillFalseInHashMap(cities,visited);
+
+        int srcIndex = 0;
+
+        int nextNode=-1;
+        int curr=srcIndex;
+
+        while (allVisited(cities, visited) == false) {
+            if (srcIndex> graph.nodeSize()) return null;
+
+        nextNode = theLightNextNodeNotVisited(curr,visited);
+
+        if (nextNode==-1) nextNode = theLightNextNode(curr);
+        if (nextNode==-1){
+            thepath= new LinkedList<NodeData>();
+            fillFalseInHashMap(cities,visited);
+            srcIndex++;
+            curr =srcIndex;
         }
 
-        MyDirectedWeightedGraph gg = (MyDirectedWeightedGraph) graph;
-
-        for (Object o1 : cities) {
-            Node src = (Node) o1;
-
-            int[] visited = new int[cities.size()];
-            Arrays.fill(visited, 0);
-            double sum = 0;
-
-            double pathSum = tspHelper(cities, src, visited, thePath[src.getKey()], sum,-1);
-            weights[src.getKey()] = pathSum;
+        thepath.add(graph.getNode(curr));
+        visited.put(curr,true);
+        curr=nextNode;
         }
-        double minSum = weights[0];
-        int index1 = 0;
-        for (int i = 0; i < weights.length; i++) {
-            if (minSum > weights[i])
-                minSum=weights[i];
-                index1=i;
-        }
-        return thePath[index1];
+
+       return thepath;
     }
 
+    //putting false at every node id in visited
+    private void fillFalseInHashMap(List<NodeData> cities, HashMap<Integer, Boolean> visited) {
+        for (NodeData nd : cities) {
+            visited.put(nd.getKey(), false);
+        }
+    }
 
     @Override
     public boolean save(String file) {

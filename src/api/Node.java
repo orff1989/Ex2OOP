@@ -31,6 +31,7 @@ public class Node implements NodeData {
             this.location = new Location(xx, yy, zz);
     }
 
+
     public LinkedList<EdgeData> getNeighbors() {
         return neighbors;
     }

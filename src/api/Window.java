@@ -22,18 +22,16 @@ public class Window extends JFrame implements ActionListener  {
 
     public class GUIGraph extends JPanel {
         MyDirectedWeightedGraph graph;
-        private int padd = 20;
-        private  double lablePadd=12;
 
         private void reset(){
             repaint();
         }
 
+
         public GUIGraph(DirectedWeightedGraph gg){
             this.graph=(MyDirectedWeightedGraph) gg;
 
         }
-
 
         @Override
         protected void paintComponent(Graphics g) {
@@ -94,6 +92,7 @@ public class Window extends JFrame implements ActionListener  {
     }
 
     public Window(String fileToRun) {
+
         dwga = new MyDirectedWeightedGraphAlgorithms();
         dwga.load(fileToRun);
         counterOfSaves = 0;
@@ -102,8 +101,6 @@ public class Window extends JFrame implements ActionListener  {
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         mainFrame.setSize(getToolkit().getScreenSize());
 
-
-        //mainFrame.setLocationRelativeTo(null);
         menuBar = new JMenuBar();
 
         File = new JMenu("File");
@@ -148,18 +145,16 @@ public class Window extends JFrame implements ActionListener  {
 
         mainFrame.setJMenuBar(menuBar);
 
-
         TheGuiGraph = new GUIGraph(dwga.getGraph());
         mainFrame.getContentPane().add(TheGuiGraph);
 
         File.setVisible(true);
         mainFrame.setVisible(true);
-
     }
 
     public void actionPerformed(ActionEvent e) {
         if(e.getSource()==load) {
-            //removeAll();
+
             subFrame = getNewFrame();
 
             loadTextField = getNewTextField();
@@ -174,6 +169,7 @@ public class Window extends JFrame implements ActionListener  {
             subFrame.setVisible(true);
         }
         if (e.getSource()== loadTextField){
+
             dwga.load(new String(loadTextField.getText()));
             System.out.println("Graph " +loadTextField.getText() + " loaded");
             subFrame.setVisible(false);
@@ -298,13 +294,15 @@ public class Window extends JFrame implements ActionListener  {
         }
 
         if(e.getSource()==isConnect) {
-            subFrame =getNewFrame();
 
+            subFrame =getNewFrame();
+            long startTime = System.nanoTime();
             boolean connected = dwga.isConnected();
             System.out.println("is Connected: " +connected);
+
+
             if (connected) JOptionPane.showMessageDialog(mainFrame, "The Graph Is Connected");
             else JOptionPane.showMessageDialog(mainFrame, "The Graph Is Not Connected");
-
 
         }
 
@@ -326,6 +324,7 @@ public class Window extends JFrame implements ActionListener  {
             String[] arrOfStr = shortestPathDistTextField.getText().split(",");
 
             double a = dwga.shortestPathDist(Integer.parseInt(arrOfStr[0]),Integer.parseInt(arrOfStr[1]));
+
             System.out.println("The shortest Path Distance is: "+ a);
             if (a==-1) JOptionPane.showMessageDialog(mainFrame, "There is no path.");
             else JOptionPane.showMessageDialog(mainFrame, "The shortest Path Distance is: "+ a);

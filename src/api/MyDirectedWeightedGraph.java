@@ -13,6 +13,7 @@ public class MyDirectedWeightedGraph implements DirectedWeightedGraph {
     private int itOfEdgesCreated;
     private int changes;
     private Collection<EdgeData> srcConllection;
+    private boolean isConnected;
 
     public MyDirectedWeightedGraph(HashMap Nodes, HashMap Edges){
         this.Nodes = Nodes;
@@ -20,7 +21,17 @@ public class MyDirectedWeightedGraph implements DirectedWeightedGraph {
         changes=0;
         createIteratorOfNodes();
         createIteratorOfEdges();
+        isConnected=false;
     }
+
+    public boolean getIsConnected() {
+        return isConnected;
+    }
+
+    public void setConnected(boolean connected) {
+        isConnected = connected;
+    }
+
     private void fixLocation(){
         for (Object o : Nodes.values()) {
             Node nd = (Node) o;
@@ -184,7 +195,6 @@ public class MyDirectedWeightedGraph implements DirectedWeightedGraph {
 
     @Override
     public Iterator<EdgeData> edgeIter(int node_id) {
-        fixNodesNeighbors();
         try {
             if (itOfEdgesCreated == changes) {
                 Node n = (Node) getNode(node_id);
