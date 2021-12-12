@@ -43,7 +43,7 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
         g.setConnected(true);
         return true;
     }
-
+//this method is going of every node and mark if the node was visited
     private void dfs(int NodeId, boolean[] visi) {
         MyDirectedWeightedGraph gg = (MyDirectedWeightedGraph) graph;
         visi[NodeId] = true;
@@ -55,6 +55,7 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
         }
     }
 
+    //this method is going of every node and mark if the node was visited
     private void dfsIterative(int NodeId, boolean[] visi){
         MyDirectedWeightedGraph gg = (MyDirectedWeightedGraph) graph;
         visi[NodeId] = true;
@@ -212,6 +213,7 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
         return null;
     }
 
+    //this mehtod is checking if all the cities was visited
     private boolean allVisited(List<NodeData> cities,HashMap<Integer,Boolean> visited) {
         for (NodeData n: cities) {
             int i =n.getKey();
@@ -220,6 +222,7 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
         return true;
     }
 
+    //this method returns the next lightest node and checking if the node was visited
     private int theLightNextNodeNotVisited(int nodeId, HashMap<Integer,Boolean> visited) {
         int index = -1;
         Node n = (Node) graph.getNode(nodeId);
@@ -227,7 +230,6 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
             if (n.getNeighbors().isEmpty()) return -1;
 
             double minW = Integer.MAX_VALUE;
-
 
             for (Object o : n.getNeighbors()) {
                 EdgeData ed = (Edge) o;
@@ -243,7 +245,7 @@ public class MyDirectedWeightedGraphAlgorithms implements DirectedWeightedGraphA
         return index;
 
     }
-
+    //this method returns the next lightest node
     private int theLightNextNode(int nodeId) {
         int index = -1;
         Node n = (Node) graph.getNode(nodeId);

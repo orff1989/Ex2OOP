@@ -108,12 +108,14 @@ public class MyDirectedWeightedGraph implements DirectedWeightedGraph {
         return new MyDirectedWeightedGraph(Nodes, Edges);
     }
 
+    //this method creates the iterator
     private void createIteratorOfNodes(){
         Iterator it = Nodes.values().iterator();
         itOfNodesCreated=changes;
         itOfNodes=it;
     }
 
+    //this method creates the iterator
     private void createIteratorOfEdges(){
         Iterator it = Edges.values().iterator();
         itOfEdgesCreated=changes;
@@ -179,7 +181,7 @@ public class MyDirectedWeightedGraph implements DirectedWeightedGraph {
             return null;
         }
     }
-
+    //this function is adding the neighbors of every node in the graph
     private void fixNodesNeighbors(){
         for (Object o1 : Nodes.values()){
             Node n = (Node) o1;

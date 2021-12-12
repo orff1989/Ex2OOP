@@ -10,7 +10,7 @@ public class Node implements NodeData {
     private transient int tag;
     private transient double weight;
     private transient String info;
-    transient LinkedList<EdgeData> neighbors;
+    transient LinkedList<EdgeData> neighbors; //this list is saving all the edges that goes from this node
 
     public Node(String pos, int id){
         this.pos =new String(pos) ;

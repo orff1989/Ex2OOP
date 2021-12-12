@@ -93,44 +93,31 @@ class MyDirectedWeightedGraphAlgorithmsTest {
 
     @Test
     void tsp() {
-//        MyDirectedWeightedGraphAlgorithms g = new MyDirectedWeightedGraphAlgorithms();
-//        boolean r =g.load("data/G1.json");
-//
-//        MyDirectedWeightedGraphAlgorithms g2 = new MyDirectedWeightedGraphAlgorithms();
-//        boolean r2 =g2.load("data/G2.json");
-//
-//        LinkedList<NodeData> al = new LinkedList();
-//        al.add(g.getGraph().getNode(0));
-//        al.add(g.getGraph().getNode(1));
-//        al.add(g.getGraph().getNode(2));
-//        al.add(g.getGraph().getNode(3));
-//
-//        List list =g.tsp(al);
-//        assertEquals(list.toString(),"[pos=35.19589389346247,32.10152879327731,0.0, id=0, pos=35.20319591121872,32.10318254621849,0.0, id=1, pos=35.20752617756255,32.1025646605042,0.0, id=2, pos=35.21007339305892,32.10107446554622,0.0, id=3]");
-//
-//        LinkedList<NodeData> al = new LinkedList();
-//        al.add(g2.getGraph().getNode(0));
-//        al.add(g2.getGraph().getNode(1));
-//        al.add(g2.getGraph().getNode(2));
-//        al.add(g2.getGraph().getNode(3));
-
-//        list =g2.tsp(al);
-//        assertEquals(list.toString(),"[pos=35.19589389346247,32.10152879327731,0.0, id=0, pos=35.19691277966102,32.10240110252101,0.0, id=21, pos=35.197952892655366,32.10271004537815,0.0, id=22, pos=35.198929325262306,32.10376408571429,0.0, id=23, pos=35.200160479418884,32.1041457210084,0.0, id=24, pos=35.201731262308314,32.104636394957986,0.0, id=25, pos=35.20260156093624,32.10476360672269,0.0, id=26, pos=35.20154022114608,32.10594485882353,0.0, id=8, pos=35.205764353510894,32.106326494117646,0.0, id=7, pos=35.20504264245359,32.104854472268904,0.0, id=27, pos=35.205764353510894,32.106326494117646,0.0, id=7, pos=35.20797194027441,32.104854472268904,0.0, id=6, pos=35.212111165456015,32.106235628571426,0.0, id=5, pos=35.21143190799032,32.104854472268904,0.0, id=28, pos=35.21310882485876,32.104636394957986,0.0, id=4, pos=35.21007339305892,32.10107446554622,0.0, id=3, pos=35.20752617756255,32.1025646605042,0.0, id=2, pos=35.20319591121872,32.10318254621849,0.0, id=1]");
+        MyDirectedWeightedGraphAlgorithms g = new MyDirectedWeightedGraphAlgorithms();
+        boolean r =g.load("data/G1.json");
 
         MyDirectedWeightedGraphAlgorithms g2 = new MyDirectedWeightedGraphAlgorithms();
-        boolean r2 =g2.load("C:\\Users\\orff1\\OneDrive\\Desktop\\100000.json");
+        boolean r2 =g2.load("data/G2.json");
+
+        LinkedList<NodeData> al = new LinkedList();
+        al.add(g.getGraph().getNode(0));
+        al.add(g.getGraph().getNode(1));
+        al.add(g.getGraph().getNode(2));
+        al.add(g.getGraph().getNode(3));
+
+        List list =g.tsp(al);
+        assertEquals(list.toString(),"[pos=35.19589389346247,32.10152879327731,0.0, id=0, pos=35.20319591121872,32.10318254621849,0.0, id=1, pos=35.20752617756255,32.1025646605042,0.0, id=2, pos=35.21007339305892,32.10107446554622,0.0, id=3]");
+
+         al = new LinkedList();
+        al.add(g2.getGraph().getNode(0));
+        al.add(g2.getGraph().getNode(1));
+        al.add(g2.getGraph().getNode(2));
+        al.add(g2.getGraph().getNode(3));
+
+        list =g2.tsp(al);
+        assertEquals(list.toString(),"[pos=35.19589389346247,32.10152879327731,0.0, id=0, pos=35.19691277966102,32.10240110252101,0.0, id=21, pos=35.197952892655366,32.10271004537815,0.0, id=22, pos=35.198929325262306,32.10376408571429,0.0, id=23, pos=35.200160479418884,32.1041457210084,0.0, id=24, pos=35.201731262308314,32.104636394957986,0.0, id=25, pos=35.20260156093624,32.10476360672269,0.0, id=26, pos=35.20154022114608,32.10594485882353,0.0, id=8, pos=35.205764353510894,32.106326494117646,0.0, id=7, pos=35.20504264245359,32.104854472268904,0.0, id=27, pos=35.205764353510894,32.106326494117646,0.0, id=7, pos=35.20797194027441,32.104854472268904,0.0, id=6, pos=35.212111165456015,32.106235628571426,0.0, id=5, pos=35.21143190799032,32.104854472268904,0.0, id=28, pos=35.21310882485876,32.104636394957986,0.0, id=4, pos=35.21007339305892,32.10107446554622,0.0, id=3, pos=35.20752617756255,32.1025646605042,0.0, id=2, pos=35.20319591121872,32.10318254621849,0.0, id=1]");
 
 
-
-
-        long startTime = System.nanoTime();
-        g2.center();
-        long endTime = System.nanoTime();
-
-        long duration = (endTime - startTime);
-        long n =1000000;
-        long ans =duration/n;
-        System.out.println(ans);
 
 
     }
